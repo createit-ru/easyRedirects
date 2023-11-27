@@ -1,0 +1,5 @@
+Changelog for easyRedirects.
+
+1.0.0-alpha
+==============
+- First version
