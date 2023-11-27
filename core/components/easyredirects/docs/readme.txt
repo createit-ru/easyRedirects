@@ -1,7 +1,5 @@
 --------------------
 easyRedirects
 --------------------
-Author: John Doe <john@doe.com>
+Author: Naumov Aleksei <info@createit.ru>
 --------------------
-
-A basic Extra for MODx Revolution.
