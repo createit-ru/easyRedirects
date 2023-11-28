@@ -29,26 +29,41 @@ switch ($modx->event->name) {
         if (!empty($search)) {
             $quotedSearch = $modx->quote($search);
 
-            /** @var easyRedirect $redirect */
-            $redirect = $modx->getObject('easyRedirect', [
-                "(`easyRedirect`.`url` = " . $quotedSearch . ")",
-                "(`easyRedirect`.`context_key` = '" . $modx->context->get('key') . "' OR `easyRedirect`.`context_key` IS NULL OR `easyRedirect`.`context_key` = '')",
-                'active' => true,
+            /** @var xPDOQuery $criteria */
+            $criteria = $modx->newQuery('easyRedirect');
+            $criteria->where([
+                'url' => $search,
+                [
+                    'context_key:=' => $modx->context->get('key'),
+                    'OR:context_key:IS' => null,
+                    'OR:context_key:=' => ''
+                ],
+                'active' => true
             ]);
 
-            // when not found, check a REGEX record..
-            // need to separate this one because of some 'alias.html > target.html' vs. 'best-alias.html > best-target.html' issues...
+            /** @var easyRedirect $redirect */
+            $redirect = $modx->getObject('easyRedirect', $criteria);
+
             if (empty($redirect) || !is_object($redirect)) {
-                // TODO:
-                // Здесь косяк в том, что идет поиск по REGEXP в том числе среди тех адресов, что не являются регулярными выражениями
-                // из-за этого для 404 страницы test-page/ibp подойдет правило "test-page". Хотя по логике оно бы должно работать только на корневую страницу.
-                $c = $modx->newQuery('easyRedirect');
-                $c->where(array(
-                    "(`easyRedirect`.`url` = " . $quotedSearch . " OR " . $quotedSearch . " REGEXP `easyRedirect`.`url` OR " . $quotedSearch . " REGEXP CONCAT('^', `easyRedirect`.`url`, '$'))",
-                    "(`easyRedirect`.`context_key` = '" . $modx->context->get('key') . "' OR `easyRedirect`.`context_key` IS NULL OR `easyRedirect`.`context_key` = '')",
-                    'active' => true,
-                ));
-                $redirect = $modx->getObject('easyRedirect', $c);
+                // Внимание.
+                // Вторая строчка в where закомментирована по той причине, что:
+                // для страницы catalog/category/product подойдет правило "category".
+                // хотя по логике оно бы должно работать только на корневую страницу.
+                $criteria2 = $modx->newQuery('easyRedirect');
+                $criteria2->where([
+                    "("
+                    . "`easyRedirect`.`url` = " . $quotedSearch
+                    //. " OR " . $quotedSearch . " REGEXP `easyRedirect`.`url`"
+                    . " OR " . $quotedSearch . " REGEXP CONCAT('^', `easyRedirect`.`url`, '$')"
+                    . ")",
+                    [
+                        'context_key:=' => $modx->context->get('key'),
+                        'OR:context_key:IS' => null,
+                        'OR:context_key:=' => ''
+                    ],
+                    'active' => true
+                ]);
+                $redirect = $modx->getObject('easyRedirect', $criteria2);
             }
 
             if (!empty($redirect) && is_object($redirect)) {
