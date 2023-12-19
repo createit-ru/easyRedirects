@@ -11,9 +11,9 @@ easyRedirects.panel.Home = function (config) {
          */
         hideMode: 'offsets',
         items: [{
-            html: '<h2>' + _('easyredirects') + '</h2>',
-            cls: '',
-            style: {margin: '15px 0'}
+            xtype: 'modx-header',
+            html: _('easyredirects'),
+            style: "margin-top:1.25rem;"
         }, {
             xtype: 'modx-tabs',
             defaults: {border: false, autoHeight: true},
