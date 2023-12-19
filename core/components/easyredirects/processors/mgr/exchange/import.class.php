@@ -34,6 +34,10 @@ class easyRedirectsImportCSVProcessor extends modProcessor {
             $url = $this->cleanupUrl($line[0]);
             $target = $this->cleanupTarget($line[1]);
             $context = ((isset($line[2]) && !empty($line[2])) ? trim($line[2]) : '');
+            $responseCode = ((isset($line[3]) && !empty($line[3])) ? trim($line[3]) : '');
+            if(!in_array($responseCode, ['301', '302', '307', '308'])) {
+                $responseCode = '301';
+            }
 
             // validate url
             if($url === false || $target === false) {
@@ -43,7 +47,7 @@ class easyRedirectsImportCSVProcessor extends modProcessor {
             }
 
             // create entry
-            $saved = $this->createRedirect($url, $target, $context, $label);
+            $saved = $this->createRedirect($url, $target, $context, $responseCode, $label);
             if(!$saved) {
                 $failed++;
                 $this->modx->log(modX::LOG_LEVEL_ERROR, '[easyRedirects] Failed to create redirect: "'.$url.'" > "'.$target.'"');
@@ -64,7 +68,7 @@ class easyRedirectsImportCSVProcessor extends modProcessor {
         )));
     }
 
-    private function createRedirect($url, $target, $contextKey, $label) {
+    private function createRedirect($url, $target, $contextKey, $responseCode, $label) {
         if(empty($url) || empty($target)) {
             return false;
         }
@@ -75,6 +79,7 @@ class easyRedirectsImportCSVProcessor extends modProcessor {
             'url' => ltrim($url, '/'),
             'target' => ltrim($target, '/'),
             'context_key' => $contextKey,
+            'response_code' => $responseCode,
             'label' => $label,
             'createdon' => date('Y-m-d H:i:s'),
             'createdby' => $this->modx->user->isAuthenticated($this->modx->context->key) ? $this->modx->user->id : 0,

@@ -85,7 +85,7 @@ Ext.extend(easyRedirects.grid.Redirects, MODx.grid.Grid, {
             }
         });
         w.reset();
-        w.setValues({active: true});
+        w.setValues({active: true, response_code: '301'});
         w.show(e.target);
     },
 
@@ -198,7 +198,7 @@ Ext.extend(easyRedirects.grid.Redirects, MODx.grid.Grid, {
     },
 
     getFields: function () {
-        return ['id', 'url', 'target', 'context_key', 'triggered', 'triggered_last', 'active', 'label', 'actions'];
+        return ['id', 'url', 'target', 'context_key', 'response_code', 'triggered', 'triggered_last', 'active', 'label', 'actions'];
     },
 
     getColumns: function () {
@@ -222,6 +222,12 @@ Ext.extend(easyRedirects.grid.Redirects, MODx.grid.Grid, {
             dataIndex: 'context_key',
             sortable: true,
             width: 80,
+        }, {
+            header: _('easyredirects_redirect_response_code'),
+            dataIndex: 'response_code',
+            sortable: true,
+            width: 80,
+            hidden: false
         }, {
             header: _('easyredirects_redirect_triggered'),
             dataIndex: 'triggered',

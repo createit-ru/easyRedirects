@@ -87,7 +87,20 @@ switch ($modx->event->name) {
 
                     $redirect->registerTrigger();
 
-                    $options = array('responseCode' => 'HTTP/1.1 301 Moved Permanently');
+                    // http redirect
+                    $statusCodes = [
+                        '301' => 'HTTP/1.1 301 Moved Permanently',
+                        '302' => 'HTTP/1.1 302 Found',
+                        '307' => 'HTTP/1.1 307 Temporary Redirect',
+                        '308' => 'HTTP/1.1 308 Permanent Redirect',
+                    ];
+
+                    $responseCode = $redirect->get('response_code');
+                    if(!array_key_exists($responseCode, $statusCodes)) {
+                        $responseCode = '301';
+                    }
+
+                    $options = array('responseCode' => $statusCodes[$responseCode]);
                     // Comment this line for debug
                     $modx->sendRedirect($target, $options);
                 }

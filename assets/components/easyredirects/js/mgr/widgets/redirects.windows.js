@@ -57,32 +57,45 @@ Ext.extend(easyRedirects.window.RedirectWindow, MODx.Window, {
                                         allowBlank: true,
                                     }, {
                                         html: _('easyredirects_redirect_context_key_desc'),
-                                        style: 'padding-top:4px;'
-                                    }]
+                                        style: 'padding-top:4px;color:#696969;'
+                                    }, {
+                                        xtype: 'xcheckbox',
+                                        boxLabel: _('easyredirects_redirect_active'),
+                                        name: 'active',
+                                        id: config.id + '-active',
+                                        checked: true,
+                                    }
+                                ]
                             },
                             {
                                 columnWidth: .5,
                                 border: false,
                                 layout: 'form',
-                                items: [{
-                                    xtype: 'textfield',
-                                    fieldLabel: _('easyredirects_redirect_label'),
-                                    name: 'label',
-                                    id: config.id + '-label',
-                                    anchor: '99%',
-                                    allowBlank: true
-                                }, {
-                                    html: _('easyredirects_redirect_label_desc'),
-                                    style: 'padding-top:4px;'
-                                }]
+                                items: [
+                                    {
+                                        xtype: 'easyredirects-combo-response-code',
+                                        fieldLabel: _('easyredirects_redirect_response_code'),
+                                        name: 'response_code',
+                                        id: config.id + '-response_code',
+                                        anchor: '99%',
+                                        allowBlank: true
+                                    }, {
+                                        html: _('easyredirects_redirect_response_code_desc'),
+                                        style: 'padding-top:4px;color:#696969;'
+                                    }, {
+                                        xtype: 'textfield',
+                                        fieldLabel: _('easyredirects_redirect_label'),
+                                        name: 'label',
+                                        id: config.id + '-label',
+                                        anchor: '99%',
+                                        allowBlank: true
+                                    }/*, {
+                                        html: _('easyredirects_redirect_label_desc'),
+                                        style: 'padding-top:4px;color:#696969;'
+                                    }*/
+                                ]
                             }
                         ]
-                    }, {
-                        xtype: 'xcheckbox',
-                        boxLabel: _('easyredirects_redirect_active'),
-                        name: 'active',
-                        id: config.id + '-active',
-                        checked: true,
                     }
                 ]
             }, {

@@ -74,3 +74,36 @@ easyRedirects.combo.Contexts = function(config) {
 
 Ext.extend(easyRedirects.combo.Contexts, MODx.combo.ComboBox);
 Ext.reg('easyredirects-combo-contexts', easyRedirects.combo.Contexts);
+
+/* Response code list combobox */
+easyRedirects.combo.ResponseCode = function(config) {
+    config = config || {};
+    Ext.applyIf(config, {
+        name: 'response_code',
+        hiddenName: 'response_code',
+        displayField: 'title',
+        valueField: 'code',
+        fields: ['code', 'title'],
+        forceSelection: true,
+        typeAhead: true,
+        editable: false,
+        allowBlank: true,
+        autocomplete: true,
+        store: new Ext.data.ArrayStore({
+            id: 0
+            ,fields: ['code','title']
+            ,data: [
+                ['301','301, Moved Permanently'],
+                ['302','302, Found'],
+                ['307','307, Temporary Redirect'],
+                ['308','308, Permanent Redirect']
+            ]
+        })
+        ,mode: 'local'
+    });
+
+    easyRedirects.combo.Contexts.superclass.constructor.call(this, config);
+};
+
+Ext.extend(easyRedirects.combo.ResponseCode, MODx.combo.ComboBox);
+Ext.reg('easyredirects-combo-response-code', easyRedirects.combo.ResponseCode);

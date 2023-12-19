@@ -6,6 +6,7 @@
         <field key="url" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
         <field key="target" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
         <field key="context_key" dbtype="varchar" precision="255" phptype="string" null="true" default="NULL" />
+        <field key="response_code" dbtype="varchar" precision="3" phptype="string" null="true" default="NULL" />
         <field key="triggered" dbtype="int" precision="11" phptype="integer" null="false" default="0" />
         <field key="triggered_first" dbtype="timestamp" phptype="datetime" null="true" default="NULL" />
         <field key="triggered_last" dbtype="timestamp" phptype="datetime" null="true" default="NULL" />
