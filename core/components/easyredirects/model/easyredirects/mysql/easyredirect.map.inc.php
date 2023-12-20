@@ -13,10 +13,16 @@ $xpdo_meta_map['easyRedirect']= array (
     'url' => '',
     'target' => '',
     'context_key' => NULL,
+    'response_code' => NULL,
     'triggered' => 0,
     'triggered_first' => NULL,
     'triggered_last' => NULL,
     'active' => 1,
+    'label' => '',
+    'createdon' => NULL,
+    'createdby' => 0,
+    'editedon' => NULL,
+    'editedby' => 0,
   ),
   'fieldMeta' => 
   array (
@@ -44,7 +50,15 @@ $xpdo_meta_map['easyRedirect']= array (
       'null' => true,
       'default' => NULL,
     ),
-    'triggered' => 
+    'response_code' =>
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '3',
+      'phptype' => 'string',
+      'null' => true,
+      'default' => NULL,
+    ),
+    'triggered' =>
     array (
       'dbtype' => 'int',
       'precision' => '11',
@@ -74,6 +88,42 @@ $xpdo_meta_map['easyRedirect']= array (
       'phptype' => 'boolean',
       'null' => false,
       'default' => 1,
+    ),
+    'label' =>
+    array (
+      'dbtype' => 'varchar',
+      'precision' => '255',
+      'phptype' => 'string',
+      'null' => false,
+      'default' => '',
+    ),
+    'createdon' =>
+    array (
+      'dbtype' => 'datetime',
+      'phptype' => 'datetime',
+      'null' => true,
+    ),
+    'createdby' =>
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'phptype' => 'integer',
+      'null' => true,
+      'default' => 0,
+    ),
+    'editedon' =>
+    array (
+      'dbtype' => 'datetime',
+      'phptype' => 'datetime',
+      'null' => true,
+    ),
+    'editedby' =>
+    array (
+      'dbtype' => 'int',
+      'precision' => '10',
+      'phptype' => 'integer',
+      'null' => true,
+      'default' => 0,
     ),
   ),
   'indexes' => 
