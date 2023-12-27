@@ -14,8 +14,7 @@ class easyRedirectsGetLabelsProcessor extends modObjectGetListProcessor  {
         $c->select($this->modx->getSelectColumns('easyRedirect', '', '', ['id', 'label']));
         $c->groupby('label', 'ASC');
         $c->where([
-            'label:!=' => '',
-            'label:IS NOT NULL'
+            'label:!=' => ''
         ]);
         if ($query = $this->getProperty('query')) {
             $c->where([
