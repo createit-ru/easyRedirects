@@ -37,6 +37,14 @@ class easyRedirectsRedirectGetListProcessor extends modObjectGetListProcessor
             $c->andCondition([
                 'url:LIKE' => "%" . $query . "%",
                 'OR:target:LIKE' => "%" . $query . "%",
+                'OR:label:LIKE' => "%" . $query . "%",
+            ]);
+        }
+
+        $label = trim($this->getProperty('label'));
+        if ($label) {
+            $c->andCondition([
+                'label' => $label
             ]);
         }
 

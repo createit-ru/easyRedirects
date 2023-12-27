@@ -48,6 +48,35 @@ Ext.reg('easyredirects-combo-search', easyRedirects.combo.Search);
 Ext.reg('easyredirects-field-search', easyRedirects.combo.Search);
 
 
+easyRedirects.combo.Label = function(config) {
+    config = config || {};
+    Ext.applyIf(config,{
+        id: 'easyredirects-combo-label',
+        fieldLabel: _('easyredirects_redirect_label'),
+        description: '',
+        fields: ['label'],
+        valueField: 'label',
+        displayField: 'label',
+        name: 'parent-cmb',
+        hiddenName: 'parent-cmp',
+        allowBlank: true,
+        url: easyRedirects.config.connector_url,
+        baseParams: {
+            action: 'mgr/redirect/getlabels',
+            combo: 1,
+            id: config.value
+            //,limit: 0
+        },
+        pageSize: 20,
+        //,typeAhead: true
+        editable: true
+    });
+    easyRedirects.combo.Label.superclass.constructor.call(this,config);
+};
+Ext.extend(easyRedirects.combo.Label, MODx.combo.ComboBox);
+Ext.reg('easyredirects-combo-label', easyRedirects.combo.Label);
+
+
 /* context list combobox */
 easyRedirects.combo.Contexts = function(config) {
     config = config || {};
@@ -74,6 +103,7 @@ easyRedirects.combo.Contexts = function(config) {
 
 Ext.extend(easyRedirects.combo.Contexts, MODx.combo.ComboBox);
 Ext.reg('easyredirects-combo-contexts', easyRedirects.combo.Contexts);
+
 
 /* Response code list combobox */
 easyRedirects.combo.ResponseCode = function(config) {

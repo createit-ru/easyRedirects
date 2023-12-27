@@ -249,31 +249,46 @@ Ext.extend(easyRedirects.grid.Redirects, MODx.grid.Grid, {
             dataIndex: 'label',
             sortable: true,
             width: 120,
-            hidden: true
+            hidden: false
         }, {
             header: _('easyredirects_grid_actions'),
             dataIndex: 'actions',
             renderer: easyRedirects.utils.renderActions,
             sortable: false,
-            width: 100,
+            width: 120,
             id: 'actions'
         }];
     },
 
-    getTopBar: function () {
+    getTopBar: function (config) {
         return [
             {
                 text: _('easyredirects_redirect_create'),
                 cls: 'primary-button',
                 handler: this.createRedirect,
                 scope: this
-            },{
+            }, {
                 text: '<i class="icon icon-upload"></i> ' + _('easyredirects_redirect_import'),
                 cls: '',
                 handler: this.importRedirects,
                 scope: this
             }, '->', {
+                xtype: 'easyredirects-combo-label',
+                name: 'filter_label',
+                id: config.id + '-filter-label',
+                width: 200,
+                emptyText: _('easyredirects_redirect_label'),
+                listeners: {
+                    select: {
+                        fn: function (field) {
+                            this._doLabelSearch(field);
+                        },
+                        scope: this
+                    }
+                }
+            }, {
                 xtype: 'easyredirects-field-search',
+                id: config.id + '-search',
                 width: 250,
                 listeners: {
                     search: {
@@ -283,7 +298,6 @@ Ext.extend(easyRedirects.grid.Redirects, MODx.grid.Grid, {
                     },
                     clear: {
                         fn: function (field) {
-                            field.setValue('');
                             this._clearSearch();
                         }, scope: this
                     },
@@ -324,13 +338,23 @@ Ext.extend(easyRedirects.grid.Redirects, MODx.grid.Grid, {
         return ids;
     },
 
+    _doLabelSearch: function (tf) {
+        this.getStore().baseParams.label = tf.getValue();
+        this.getBottomToolbar().changePage(1);
+    },
+
     _doSearch: function (tf) {
         this.getStore().baseParams.query = tf.getValue();
         this.getBottomToolbar().changePage(1);
     },
 
     _clearSearch: function () {
+        Ext.getCmp(this.config.id + '-filter-label').setValue('');
+        Ext.getCmp(this.config.id + '-search').setValue('');
+
+        this.getStore().baseParams.label = '';
         this.getStore().baseParams.query = '';
+
         this.getBottomToolbar().changePage(1);
     },
 });
