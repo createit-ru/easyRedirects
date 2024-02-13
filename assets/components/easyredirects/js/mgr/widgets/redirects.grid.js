@@ -127,6 +127,46 @@ Ext.extend(easyRedirects.grid.Redirects, MODx.grid.Grid, {
         });
     },
 
+    copyRedirect: function (btn, e, row) {
+        if (typeof (row) != 'undefined') {
+            this.menu.record = row.data;
+        } else if (!this.menu.record) {
+            return false;
+        }
+        let id = this.menu.record.id;
+
+        MODx.Ajax.request({
+            url: this.config.url,
+            params: {
+                action: 'mgr/redirect/get',
+                id: id
+            },
+            listeners: {
+                success: {
+                    fn: function (r) {
+                        var w = MODx.load({
+                            xtype: 'easyredirects-redirect-window-create',
+                            title: _('easyredirects_redirect_create_copy'),
+                            id: Ext.id(),
+                            listeners: {
+                                success: {
+                                    fn: function () {
+                                        this.refresh();
+                                    }, scope: this
+                                }
+                            }
+                        });
+                        w.reset();
+                        // Создаём копию записи без поля id
+                        const { id, ...copiedObject } = r.object;
+                        w.setValues(copiedObject);
+                        w.show(e.target);
+                    }, scope: this
+                }
+            }
+        });
+    },
+
     removeRedirect: function () {
         var ids = this._getSelectedIds();
         if (!ids.length) {

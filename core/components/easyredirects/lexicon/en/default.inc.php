@@ -20,7 +20,9 @@ $_lang['easyredirects_redirect_label'] = 'Label';
 $_lang['easyredirects_redirect_label_desc'] = 'Use label for grouping or searching.';
 
 $_lang['easyredirects_redirect_create'] = 'Create new redirect';
+$_lang['easyredirects_redirect_create_copy'] = 'Create a copy of the redirect';
 $_lang['easyredirects_redirect_update'] = 'Update';
+$_lang['easyredirects_redirect_copy'] = 'Create a copy';
 $_lang['easyredirects_redirect_enable'] = 'Enable';
 $_lang['easyredirects_redirects_enable'] = 'Enable selected';
 $_lang['easyredirects_redirect_disable'] = 'Disable';

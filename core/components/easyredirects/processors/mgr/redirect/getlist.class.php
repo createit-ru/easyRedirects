@@ -102,6 +102,16 @@ class easyRedirectsRedirectGetListProcessor extends modObjectGetListProcessor
             ];
         }
 
+        // Copy
+        $array['actions'][] = [
+            'cls' => '',
+            'icon' => 'icon icon-copy',
+            'title' => $this->modx->lexicon('easyredirects_redirect_copy'),
+            'action' => 'copyRedirect',
+            'button' => false,
+            'menu' => true,
+        ];
+
         // Remove
         $array['actions'][] = [
             'cls' => '',

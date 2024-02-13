@@ -20,7 +20,9 @@ $_lang['easyredirects_redirect_label'] = 'Метка';
 $_lang['easyredirects_redirect_label_desc'] = 'Используйте метки для группировки или поиска.';
 
 $_lang['easyredirects_redirect_create'] = 'Создать новый редирект';
+$_lang['easyredirects_redirect_create_copy'] = 'Создать копию редиректа';
 $_lang['easyredirects_redirect_update'] = 'Изменить';
+$_lang['easyredirects_redirect_copy'] = 'Создать копию';
 $_lang['easyredirects_redirect_enable'] = 'Включить';
 $_lang['easyredirects_redirects_enable'] = 'Включить выбранные';
 $_lang['easyredirects_redirect_disable'] = 'Отключить';
